@@ -1,0 +1,11 @@
+version: '3'
+services:
+  notification:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - DB_HOST=value
+      - DB_PORT
+      - DB_USER
+      - DB_PASS
