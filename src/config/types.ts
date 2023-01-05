@@ -2,11 +2,12 @@ const Types = {
 
     Controller: Symbol('Controller'),
 
-    AuthService: Symbol('AuthService'),
+    UserService: Symbol('UserService'),
     DrugService: Symbol('DrugService'),
     VaccinationService: Symbol('VaccinationService'),
+    JWTService: Symbol('JWTService'),
 
-    AuthRepository: Symbol('AuthRepository'),
+    UserRepository: Symbol('UserRepository'),
     DrugRepository: Symbol('DrugRepository'),
     VaccinationRepository: Symbol('VaccinationRepository')
 };

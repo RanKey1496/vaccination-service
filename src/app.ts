@@ -5,16 +5,19 @@ import errorHandler from 'errorhandler';
 import morgan from 'morgan';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { BadRequest, Unauthorize, Conflict } from './util/exceptions';
-import { badRequestResponse, unauthorizeResponse, conflictResponse, internalResponse } from './util/response';
+import { BadRequest, Unauthorize, Conflict, NotFound } from './util/exceptions';
+import { badRequestResponse, unauthorizeResponse, conflictResponse, internalResponse, notFoundResponse } from './util/response';
 import { ENVIRONMENT } from './util/secrets';
 import { RegistrableController } from './controller/RegistrableController';
 import Types from './config/types';
 import { container } from './config/inversify';
+import { dataSource } from './config/db';
 
 export default class App {
 
     private async init() {
+
+        await dataSource.initialize();
 
         const app: Application = express();
         app.set('port', process.env.PORT || 3000);
@@ -32,6 +35,10 @@ export default class App {
 
         app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
             console.error(err.stack);
+
+            if (err instanceof NotFound) {
+                return notFoundResponse(res, err.message);
+            }
             if (err instanceof BadRequest) {
                 return badRequestResponse(res, err.message);
             }
@@ -41,6 +48,7 @@ export default class App {
             if (err instanceof Conflict) {
                 return conflictResponse(res, err.message);
             }
+
             return internalResponse(res);
         });
 

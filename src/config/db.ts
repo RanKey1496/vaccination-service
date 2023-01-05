@@ -1,10 +1,10 @@
-import { DataSourceOptions } from 'typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
 import { DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME, DB_LOGGING, DB_SYNC } from '../util/secrets';
 import { User } from '../entity/user';
 import { Drug } from '../entity/drug';
 import { Vaccination } from '../entity/vaccination';
 
-export const dbOptions: DataSourceOptions = {
+const dbOptions: DataSourceOptions = {
     type: 'mysql',
     host: DB_HOST,
     port: DB_PORT,
@@ -19,3 +19,5 @@ export const dbOptions: DataSourceOptions = {
     logging: DB_LOGGING,
     synchronize: DB_SYNC
 };
+
+export const dataSource = new DataSource(dbOptions);

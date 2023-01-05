@@ -13,6 +13,10 @@ export function dataResponse(res: Response, data: any) {
     return res.status(httpStatus.OK).json({ code: httpStatus.OK, success: true, data });
 }
 
+export function notFoundResponse(res: Response, message: string) {
+    return res.status(httpStatus.NOT_FOUND).json(data(httpStatus.NOT_FOUND, false, message));
+}
+
 export function badRequestResponse(res: Response, message: string) {
     return res.status(httpStatus.BAD_REQUEST).json(data(httpStatus.BAD_REQUEST, false, message));
 }
