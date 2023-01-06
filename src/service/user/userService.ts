@@ -16,8 +16,7 @@ export interface UserService {
 @injectable()
 export class UserServiceImpl implements UserService {
 
-    @inject(Types.UserRepository)
-    private userRepository: UserRepository;
+    constructor(@inject(Types.UserRepository) private userRepository: UserRepository) {}
 
     private async hashPassword(password: string): Promise<string> {
         return await bcrypt.hash(password, 10);

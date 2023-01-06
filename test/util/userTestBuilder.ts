@@ -2,7 +2,7 @@ import { User } from '../../src/entity/user';
 
 export default class UserTestBuilder {
 
-    private user: User;
+    private user: User = new User();
 
     public static newUser() {
         return new UserTestBuilder;

@@ -2,7 +2,7 @@ import { Drug } from '../../src/entity/drug';
 
 export default class DrugTestBuilder {
     
-    private drug: Drug;
+    private drug: Drug = new Drug();
 
     public static newDrug() {
         return new DrugTestBuilder;

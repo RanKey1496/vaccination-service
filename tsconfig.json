@@ -16,7 +16,8 @@
             ]
         },
         "types": [
-            "reflect-metadata"
+            "reflect-metadata",
+            "jest"
         ],
         "typeRoots": [
             "node_modules/@types"

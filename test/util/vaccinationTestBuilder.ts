@@ -4,7 +4,7 @@ import DrugTestBuilder from './drugTestBuilder';
 
 export default class VaccionationTestBuilder {
     
-    private vaccionation: Vaccination;
+    private vaccionation: Vaccination = new Vaccination;
 
     public static newVaccionation() {
         return new VaccionationTestBuilder;
