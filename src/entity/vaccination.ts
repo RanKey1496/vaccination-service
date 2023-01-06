@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Length, IsDateString, Min } from 'class-validator';
 import { Drug } from './drug';
 
 @Entity('Vaccination')
@@ -7,18 +8,19 @@ export class Vaccination {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column()
+    @Column({ nullable: false })
+    @Length(3)
     public name: string;
 
-    @OneToOne(() => Drug)
-    @JoinColumn()
+    @ManyToOne(() => Drug, (drug) => drug.vaccionations)
     public drug: Drug;
 
-    @Column()
+    @Column({ nullable: false })
+    @Min(0)
     public dose: number;
 
-    @Column()
+    @Column({ nullable: false })
+    @IsDateString()
     public date: Date;
-
 
 }

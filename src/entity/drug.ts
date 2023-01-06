@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Length, IsDateString, Min } from 'class-validator';
+import { Vaccination } from './vaccination';
 
 @Entity('Drug')
 export class Drug {
@@ -24,5 +25,8 @@ export class Drug {
     @Column({ nullable: false, name: 'available_at' })
     @IsDateString()
     public availableAt: Date;
+
+    @OneToMany(() => Vaccination, (vaccination) => vaccination.drug)
+    public vaccionations: Vaccination[];
 
 }

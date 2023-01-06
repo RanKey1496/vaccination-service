@@ -25,7 +25,6 @@ export class DrugController implements RegistrableController {
 
                     const drug = this.drugService.createInstance(name, approved, min_dose,
                         max_dose, available_at);
-                        console.log(drug)
                     await validateEntity(drug);
                     await this.drugService.saveNewDrug(drug);
 
@@ -42,7 +41,6 @@ export class DrugController implements RegistrableController {
                     const { name, approved, min_dose, max_dose, available_at } = req.body;
 
                     const drug = await this.drugService.findById(id);
-                    console.log(drug)
                     await this.drugService.updateDrug(drug, name, approved, min_dose, max_dose, available_at );
 
                     return dataResponse(res, 'Droga actualizada correctamente');
