@@ -52,7 +52,6 @@ export class VaccinationServiceImpl implements VaccinationService {
             vaccination.drug = drug;
             vaccination.dose = dose;
             vaccination.date = date;
-            console.log(vaccination)
             const result = await this.vaccinationRepository.update(vaccination.id, vaccination);
             if (!result) throw new BadRequest('No se pudo actualizar la vacunacion');
             return result;
@@ -71,6 +70,9 @@ export class VaccinationServiceImpl implements VaccinationService {
     }
 
     public async validateCanVaccinateWithThisDrug(drug: Drug, dose: number, date: Date): Promise<void> {
+        if (!drug.approved) {
+            throw new BadRequest('Droga no aprobada');
+        }
         if (dose > drug.maxDose || dose < drug.minDose) {
             throw new BadRequest('La dosis no está en el rango permitido');
         }
