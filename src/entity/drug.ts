@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Length, IsDateString, Min } from 'class-validator';
 
 @Entity('Drug')
 export class Drug {
@@ -6,19 +7,22 @@ export class Drug {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column()
+    @Column({ nullable: false })
+    @Length(3)
     public name: string;
 
-    @Column()
+    @Column({ nullable: false, default: false })
     public approved: boolean;
 
-    @Column({ name: 'min_dose' })
+    @Column({ nullable: false, name: 'min_dose' })
+    @Min(0)
     public minDose: number;
 
-    @Column({ name: 'max_dose' })
+    @Column({ nullable: false, name: 'max_dose' })
     public maxDose: number;
 
-    @Column({ name: 'available_at' })
+    @Column({ nullable: false, name: 'available_at' })
+    @IsDateString()
     public availableAt: Date;
 
 }

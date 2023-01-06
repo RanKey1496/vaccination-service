@@ -3,11 +3,11 @@ import { unmanaged, injectable } from 'inversify';
 
 export interface Repository<T> {
     findAll(): Promise<T[]>;
-    findById(id: string): Promise<T>;
+    findById(id: string | number): Promise<T>;
     findByQuery(query?: FindOptionsWhere<T>): Promise<T[]>;
-    update(id: string, item: T): Promise<boolean>;
+    update(id: string | number, item: T): Promise<boolean>;
     save(data: T): Promise<T>;
-    delete(id: string): Promise<boolean>;
+    delete(id: string | number): Promise<boolean>;
 }
 
 @injectable()
@@ -23,7 +23,11 @@ export abstract class GenericRepositoryImp<TEntity> implements Repository<TEntit
         return await this.repository.find();
     }
 
-    public async findById(id: string): Promise<TEntity> {
+    public async findAllPaginate(offset: number, limit: number): Promise<TEntity[]> {
+        return await this.repository.find({ skip: offset, take: limit });
+    }
+
+    public async findById(id: string | number): Promise<TEntity> {
         return await this.repository.findOneBy({ id } as unknown as FindOptionsWhere<TEntity>);
     }
 
@@ -35,12 +39,12 @@ export abstract class GenericRepositoryImp<TEntity> implements Repository<TEntit
         return await this.repository.find(query);
     }
 
-    public async update(id: string, data: any): Promise<boolean> {
+    public async update(id: string | number, data: any): Promise<boolean> {
         const result = await this.repository.update(id, data);
         return !!result;
     }
 
-    public async delete(id: string): Promise<boolean> {
+    public async delete(id: string | number): Promise<boolean> {
         const result = await this.repository.delete(id);
         return !!result;
     }

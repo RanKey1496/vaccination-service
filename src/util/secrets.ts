@@ -38,4 +38,4 @@ export const DB_SYNC = Boolean(process.env.DB_SYNC) || false;
  * JWT
  */
 export const JWT_SECRET_TOKEN = process.env.JWT_SECRET_TOKEN;
-export const JWT_EXPIRE_TIME = process.env.JWT_EXPIRE_TIME;
+export const JWT_EXPIRE_TIME = Number(process.env.JWT_EXPIRE_TIME);

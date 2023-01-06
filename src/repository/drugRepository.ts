@@ -1,13 +1,13 @@
 import { injectable } from 'inversify';
 import { GenericRepositoryImp } from './repository';
-import { User } from '../entity/user';
 import { dataSource } from '../config/db';
+import { Drug } from '../entity/drug';
 
 @injectable()
-export class UserRepository extends GenericRepositoryImp<User> {
+export class DrugRepository extends GenericRepositoryImp<Drug> {
 
     constructor() {
-        super(dataSource.getRepository(User));
+        super(dataSource.getRepository(Drug));
     }
-    
+
 }
