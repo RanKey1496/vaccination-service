@@ -18,8 +18,7 @@ export interface DrugService {
 @injectable()
 export class DrugServiceImpl implements DrugService {
 
-    @inject(Types.DrugRepository)
-    private drugRepository: DrugRepository;
+    constructor(@inject(Types.DrugRepository) private drugRepository: DrugRepository) {}
 
     public createInstance(name: string, approved: boolean, minDose: number,
         maxDose: number, availableAt: Date): Drug {
@@ -53,7 +52,7 @@ export class DrugServiceImpl implements DrugService {
             drug.minDose = minDose;
             drug.maxDose = maxDose;
             drug.availableAt = availableAt;
-            const result = this.drugRepository.update(drug.id, drug);
+            const result = await this.drugRepository.update(drug.id, drug);
             if (!result) throw new BadRequest('No se pudo actualizar la droga');
             return result;
     }
@@ -65,7 +64,7 @@ export class DrugServiceImpl implements DrugService {
     }
 
     public async removeDrug(drug: Drug): Promise<boolean> {
-        const result = this.drugRepository.delete(drug.id);
+        const result = await this.drugRepository.delete(drug.id);
         if (!result) throw new BadRequest('No se pudo eliminar la droga');
         return result;
     }

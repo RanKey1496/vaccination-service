@@ -1,10 +1,8 @@
-import { FindOneOptions, FindOptionsWhere, Repository as typeRepository } from 'typeorm';
+import { FindOptionsWhere, Repository as typeRepository } from 'typeorm';
 import { unmanaged, injectable } from 'inversify';
 
 export interface Repository<T> {
-    findAll(): Promise<T[]>;
     findById(id: string | number): Promise<T>;
-    findByQuery(query?: FindOptionsWhere<T>): Promise<T[]>;
     update(id: string | number, item: T): Promise<boolean>;
     save(data: T): Promise<T>;
     delete(id: string | number): Promise<boolean>;
@@ -19,10 +17,6 @@ export abstract class GenericRepositoryImp<TEntity> implements Repository<TEntit
         this.repository = repository;
     }
 
-    public async findAll(): Promise<TEntity[]> {
-        return await this.repository.find();
-    }
-
     public async findAllPaginate(offset: number, limit: number): Promise<TEntity[]> {
         return await this.repository.find({ skip: offset, take: limit });
     }
@@ -33,10 +27,6 @@ export abstract class GenericRepositoryImp<TEntity> implements Repository<TEntit
 
     public async findOneByQuery(query: FindOptionsWhere<TEntity>): Promise<TEntity> {
         return await this.repository.findOne({ where: query });
-    }
-
-    public async findByQuery(query: FindOptionsWhere<TEntity>): Promise<TEntity[]> {
-        return await this.repository.find(query);
     }
 
     public async update(id: string | number, data: any): Promise<boolean> {

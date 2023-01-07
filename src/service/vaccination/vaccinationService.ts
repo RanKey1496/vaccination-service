@@ -20,8 +20,7 @@ export interface VaccinationService {
 @injectable()
 export class VaccinationServiceImpl implements VaccinationService {
     
-    @inject(Types.VaccinationRepository)
-    private vaccinationRepository: VaccinationRepository;
+    constructor(@inject(Types.VaccinationRepository) private vaccinationRepository: VaccinationRepository) {}
 
     public createInstance(name: string, drug: Drug, dose: number, date: Date): Vaccination {
         const vaccination = new Vaccination();
@@ -64,7 +63,7 @@ export class VaccinationServiceImpl implements VaccinationService {
     }
 
     public async removeVaccination(vaccination: Vaccination): Promise<boolean> {
-        const result = this.vaccinationRepository.delete(vaccination.id);
+        const result = await this.vaccinationRepository.delete(vaccination.id);
         if (!result) throw new BadRequest('No se pudo eliminar la vacunacion');
         return result;
     }
