@@ -11,7 +11,7 @@ import { validateEntity } from '../util/main';
 export class AuthController implements RegistrableController {
 
     @inject(Types.UserService)
-    private userService: UserService
+    private userService: UserService;
 
     @inject(Types.JWTService)
     private jwtService: JWTService;
@@ -21,7 +21,7 @@ export class AuthController implements RegistrableController {
         app.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
             try {
                 const { name, email, password } = req.body;
-                
+
                 await this.userService.validateUserDoesntExists(email);
                 const user = this.userService.createInstance(name, email, password);
                 await validateEntity(user);

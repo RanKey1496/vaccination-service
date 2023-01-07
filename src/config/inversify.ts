@@ -21,7 +21,7 @@ container.bind<RegistrableController>(Types.Controller).to(VaccinationController
 
 // Services
 container.bind<UserService>(Types.UserService).to(UserServiceImpl);
-container.bind<JWTService>(Types.JWTService).to(JWTServiceImpl)
+container.bind<JWTService>(Types.JWTService).to(JWTServiceImpl);
 container.bind<DrugService>(Types.DrugService).to(DrugServiceImpl);
 container.bind<VaccinationService>(Types.VaccinationService).to(VaccinationServiceImpl);
 

@@ -9,5 +9,5 @@ export class UserRepository extends GenericRepositoryImp<User> {
     constructor() {
         super(dataSource.getRepository(User));
     }
-    
+
 }

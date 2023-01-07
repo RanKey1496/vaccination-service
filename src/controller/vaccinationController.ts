@@ -21,7 +21,7 @@ export class VaccinationController implements RegistrableController {
     private drugService: DrugService;
 
     public register(app: Application): void {
-        
+
         app.post('/vaccination', this.jwtService.isAuthenticated.bind(this.jwtService),
             async (req: Request, res: Response, next: NextFunction) => {
                 try {

@@ -19,7 +19,7 @@ export interface VaccinationService {
 
 @injectable()
 export class VaccinationServiceImpl implements VaccinationService {
-    
+
     constructor(@inject(Types.VaccinationRepository) private vaccinationRepository: VaccinationRepository) {}
 
     public createInstance(name: string, drug: Drug, dose: number, date: Date): Vaccination {

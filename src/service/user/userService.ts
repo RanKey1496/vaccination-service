@@ -62,5 +62,5 @@ export class UserServiceImpl implements UserService {
             throw new BadRequest('Correo y/o contraseña incorrecta');
         }
     }
-    
+
 }
