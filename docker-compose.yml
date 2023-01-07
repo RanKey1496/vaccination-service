@@ -1,11 +1,30 @@
 version: '3'
 services:
-  notification:
+  vaccination:
     build: .
     ports:
       - 3000:3000
     environment:
-      - DB_HOST=value
-      - DB_PORT
-      - DB_USER
-      - DB_PASS
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=rankey
+      - DB_PASS=rankey
+      - DB_NAME=drug
+      - DB_LOGGING=true
+      - DB_SYNC=true
+      - JWT_SECRET_TOKEN=prueba
+      - JWT_EXPIRE_TIME=3600
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_DATABASE=drug
+      - MYSQL_USER=rankey
+      - MYSQL_PASSWORD=rankey
+      - MYSQL_ROOT_PASSWORD=rankey
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-db:/var/lib/mysql
+volumes:
+  mysql-db:
